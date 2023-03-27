@@ -1,5 +1,5 @@
 {
-  "name": "@2rohityadav/useLocalStorageState",
+  "name": "@2rohityadav/use-local-storage-state",
   "version": "1.0.0",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -23,11 +23,13 @@
       "useLocalStorage",
       "localStorage"
     ],
-
-   "repository": {
-        "type": "git",
-        "url": "git+https://github.com/2rohityadav/useLocalStorageState.git"
-    }, 
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2rohityadav/useLocalStorageState.git"
+  }, 
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/2rohityadav"
+  },
   "dependencies": {
     "@vitejs/plugin-react": "^3.0.1",
     "react": "^18.2.0",
