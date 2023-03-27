@@ -1,5 +1,5 @@
 {
-  "name": "use-local-storage-state",
+  "name": "@2rohityadav/useLocalStorageState",
   "version": "1.0.0",
   "license": "MIT",
   "main": "dist/cjs/index.js",
