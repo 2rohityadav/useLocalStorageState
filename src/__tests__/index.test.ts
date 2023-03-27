@@ -1,7 +1,7 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
-import useLocalStorage from '../use-local-storage';
+import useLocalStorageState from '..';
 
-describe('useLocalStorage', () => {
+describe('useLocalStorageState', () => {
   const key = 'testKey';
   const defaultValue = { foo: 'bar' };
   const serializedDefaultValue = JSON.stringify(defaultValue);
@@ -18,7 +18,9 @@ describe('useLocalStorage', () => {
   });
 
   it('should return the default value if the key is not in localStorage', () => {
-    const { result } = renderHook(() => useLocalStorage(key, defaultValue));
+    const { result } = renderHook(() =>
+      useLocalStorageState(key, defaultValue),
+    );
 
     expect(result.current[0]).toEqual(defaultValue);
     expect(window.localStorage.getItem(key)).toEqual(serializedDefaultValue);
@@ -27,14 +29,18 @@ describe('useLocalStorage', () => {
   it('should return the value from localStorage if the key is in localStorage', () => {
     window.localStorage.setItem(key, serializedNewValue);
 
-    const { result } = renderHook(() => useLocalStorage(key, defaultValue));
+    const { result } = renderHook(() =>
+      useLocalStorageState(key, defaultValue),
+    );
 
     expect(result.current[0]).toEqual(newValue);
     expect(window.localStorage.getItem(key)).toEqual(serializedNewValue);
   });
 
   it('should set the value in localStorage when the state is updated', () => {
-    const { result } = renderHook(() => useLocalStorage(key, defaultValue));
+    const { result } = renderHook(() =>
+      useLocalStorageState(key, defaultValue),
+    );
 
     act(() => {
       result.current[1](newValue);
@@ -49,7 +55,7 @@ describe('useLocalStorage', () => {
     window.localStorage.setItem(oldKey, serializedDefaultValue);
 
     const { result, rerender } = renderHook(
-      ({ key }) => useLocalStorage(key, defaultValue),
+      ({ key }) => useLocalStorageState(key, defaultValue),
       { initialProps: { key: oldKey } },
     );
 
@@ -75,7 +81,7 @@ describe('useLocalStorage', () => {
   //   const deserializer = jest.fn((value) => value);
 
   //   const { result } = renderHook(() =>
-  //     useLocalStorage(key, defaultValue, {
+  //     useLocalStorageState(key, defaultValue, {
   //       serialize: serializer,
   //       deserialize: deserializer,
   //     }),
@@ -124,7 +130,7 @@ describe('useLocalStorage', () => {
 
   //   let result: any;
   //   await act(async () => {
-  //     result = renderHook(() => useLocalStorage(key, defaultValue));
+  //     result = renderHook(() => useLocalStorageState(key, defaultValue));
   //   });
 
   //   expect(result.current[0]).toEqual(defaultValue);
